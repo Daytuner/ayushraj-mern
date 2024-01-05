@@ -79,7 +79,7 @@ const Shipping = () => {
             <Button
             type='submit'
             variant='primary'
-            className='mt-2'>Country</Button>
+            className='mt-2'>Continue</Button>
        </Form>
     </FormContainer>
   )

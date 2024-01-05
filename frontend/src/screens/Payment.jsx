@@ -1,4 +1,4 @@
-import React from 'react'
+
 import {useNavigate} from 'react-router-dom'
 import { useState,useEffect } from 'react'
 import { Form,Button,Col } from 'react-bootstrap'
@@ -24,7 +24,7 @@ const Payment = () => {
     const submitHandler = async(e)=>{
         e.preventDefault()
         dispatch(savePaymentMethod(payment))
-        navigate('/placeOrder')
+        navigate('/order')
     }
 
   return (
@@ -33,7 +33,7 @@ const Payment = () => {
         <h1>Payment  Method</h1>
         <Form onSubmit={submitHandler}>
             <Form.Group>
-                <Form.Lable as='legend'>Select Method</Form.Lable>
+                <Form.Label as='legend'>Select Method</Form.Label>
                 <Col>
                 <Form.Check
                  type='radio'
@@ -43,10 +43,8 @@ const Payment = () => {
                  name='paymentMethod'
                  value='PayPal'
                  checked
-                 onChange={(e)=>setPayment(e.target.value)}>
-
-                 </Form.Check>
-                </Col>
+                 onChange={(e)=>setPayment(e.target.value)}></Form.Check>
+                  </Col>
             </Form.Group>
             <Button variant='primary' type='submit'>Continue</Button>
         </Form>

@@ -16,6 +16,7 @@ import RegisterScreen from './screens/RegisterScreen.jsx';
 import Shipping from './screens/Shipping.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import Payment from './screens/Payment.jsx';
+import PlaceOrder from './screens/PlaceOrder.jsx';
 
 const router = createBrowserRouter( [
   {
@@ -28,11 +29,13 @@ const router = createBrowserRouter( [
       {  path:'/cart',element:<Cart/> },
       {  path: '/login',element:<LoginScreen/>},
       {  path: '/register',element:<RegisterScreen/>},
-      {  path: '', element:<PrivateRoute/> ,
-      children:[
-        {path: '/shipping',element:<Shipping/>},
-        {path: '/payment',element:<Payment/>},
-    ]
+      {  path: '', 
+         element:<PrivateRoute/> ,
+         children:[
+         {path: '/shipping',element:<Shipping/>},
+         {path: '/payment',element:<Payment/>},
+         {path: '/order',element:<PlaceOrder/>}
+        ]
       }
     ]
   }
