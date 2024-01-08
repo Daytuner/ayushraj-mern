@@ -24,7 +24,7 @@ const Payment = () => {
     const submitHandler = async(e)=>{
         e.preventDefault()
         dispatch(savePaymentMethod(payment))
-        navigate('/order')
+        navigate('/placeorder')
     }
 
   return (

@@ -32,11 +32,16 @@ const orderSchema = new mongoose.Schema({
     paymentResult:{
         id:{type:String},
         status:{type:String},
-        updateTime:{type:String},
+        update_time:{type:String},
         email_address:{type:String}
         
     },
-    itemPrice:{
+    itemsPrice:{
+        type:Number,
+        required:true,
+        default:0.0
+    },
+    shippingPrice:{
         type:Number,
         required:true,
         default:0.0
@@ -46,7 +51,7 @@ const orderSchema = new mongoose.Schema({
         required:true,
         default:0.0
     },
-    totlaPrice:{
+    totalPrice:{
         type:Number,
         required:true,
         default:0.0

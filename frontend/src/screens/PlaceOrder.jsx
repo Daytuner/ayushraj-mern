@@ -29,7 +29,7 @@ const PlaceOrder = () => {
   const placeOrderHandler = async() =>{
         try {
             const res = await createOrder({
-                OrderItems:cart.cartItems,
+                orderItems:cart.cartItems,
                 shippingAddress:cart.shippingAddress,
                 paymentMethod:cart.paymentMethod,
                 itemsPrice:cart.itemsPrice,

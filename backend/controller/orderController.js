@@ -6,7 +6,7 @@ import Order from'../models/orderModel.js'
 // @access Private
 const addOrderItems = asyncHandler(async(req,res,next)=>{
   const {
-  OrderItems,
+  orderItems,
   shippingAddress,
   paymentMethod,
   shippingPrice,
@@ -15,12 +15,12 @@ const addOrderItems = asyncHandler(async(req,res,next)=>{
   totalPrice
   } = req.body
 
-  if(OrderItems && OrderItems.length===0){
+  if(orderItems && orderItems.length===0){
     res.status(400)
     throw new Error('No Order Items');
   }else{
     const order =new Order({
-      OrderItems:OrderItems.map((x)=>({
+      orderItems:orderItems.map((x)=>({
         ...x,
         product:x._id,
         _id:undefined
@@ -66,14 +66,31 @@ const getOrderById= asyncHandler(async(req,res,next)=>{
 
 
 // @dsce Update Order To Paid
-// @route Get /api/orders/:id/pay
-// @access Private Admin
+// @route Put /api/orders/:id/pay
+// @access Private 
 const updateOrderToPaid= asyncHandler(async(req,res,next)=>{
-    res.send('update order to paid')
+    const order = await Order.findById(req.params.id)
+
+    if(order){
+      order.isPaid = true
+      order.paidAt = Date.now()
+      order.paymentResult = {
+        id:req.body.id,
+        status:req.body.status,
+        update_time:req.body.update_time,
+        email_address:res.body.payer.email_address
+      }
+
+      const updateOrder = await order.save()
+      res.status(200).json(updateOrder)
+    }else{
+      res.status(404)
+      throw new Error('No Order Found')
+    }
   })
 
 // @dsce Update Order To Paid
-// @route Get /api/orders/:id/pay
+// @route Put /api/orders/:id/pay
 // @access Private Admin
 const updateOrderToDelivered= asyncHandler(async(req,res,next)=>{
     res.send('update order to delevered')

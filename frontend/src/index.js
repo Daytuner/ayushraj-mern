@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {createBrowserRouter,RouterProvider} from 'react-router-dom'
+import {PayPalScriptProvider} from  '@paypal/react-paypal-js'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css';
 import App from './App';
@@ -17,6 +18,7 @@ import Shipping from './screens/Shipping.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import Payment from './screens/Payment.jsx';
 import PlaceOrder from './screens/PlaceOrder.jsx';
+import Order from './screens/Order.jsx';
 
 const router = createBrowserRouter( [
   {
@@ -34,7 +36,8 @@ const router = createBrowserRouter( [
          children:[
          {path: '/shipping',element:<Shipping/>},
          {path: '/payment',element:<Payment/>},
-         {path: '/order',element:<PlaceOrder/>}
+         {path: '/placeorder',element:<PlaceOrder/>},
+         {path: '/order/:id',element:<Order/>},
         ]
       }
     ]
@@ -46,7 +49,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <PayPalScriptProvider deferLoading={true}>
     <RouterProvider router={router}/>
+      </PayPalScriptProvider>
     </Provider>
   </React.StrictMode>
 );
