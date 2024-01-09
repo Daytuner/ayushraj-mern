@@ -182,7 +182,7 @@ const Order = () => {
                               {loadingPay && <Loader/>}
                               {isPending?<Loader/>:(
                                  <div>
-                                    <Button onClick={onApproveTest} style={{marginBottom:'10px'}}>Test Button</Button>
+                                    {/* <Button onClick={onApproveTest} style={{marginBottom:'10px'}}>Test Button</Button> */}
                                     <div>
                                        <PayPalButtons createOrder={createOrder} onApprove={onApprove} onError={onError} ></PayPalButtons>
                                     </div>
