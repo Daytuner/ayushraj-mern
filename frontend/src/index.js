@@ -19,6 +19,7 @@ import PrivateRoute from './components/PrivateRoute.jsx';
 import Payment from './screens/Payment.jsx';
 import PlaceOrder from './screens/PlaceOrder.jsx';
 import Order from './screens/Order.jsx';
+import Profile from './screens/Profile.jsx';
 
 const router = createBrowserRouter( [
   {
@@ -38,6 +39,7 @@ const router = createBrowserRouter( [
          {path: '/payment',element:<Payment/>},
          {path: '/placeorder',element:<PlaceOrder/>},
          {path: '/order/:id',element:<Order/>},
+         {path: '/profile',element:<Profile/>},
         ]
       }
     ]
