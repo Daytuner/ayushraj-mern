@@ -93,14 +93,25 @@ const updateOrderToPaid= asyncHandler(async(req,res,next)=>{
 // @route Put /api/orders/:id/pay
 // @access Private Admin
 const updateOrderToDelivered= asyncHandler(async(req,res,next)=>{
-    res.send('update order to delevered')
+  const order  = await Order.findById(req.params.id)
+  if(order){
+    order.isDelivered = true;
+    order.deliveredAt = Date.now()
+    const updateOrder = await order.save()
+    res.status(200).json(updateOrder)
+  }
+  else{
+    res.status(404)
+    throw new Error('No Order Found')
+  }
   })
 
 // @dsce Get All Orders
 // @route Get /api/orders
 // @access Private
 const getOrders= asyncHandler(async(req,res,next)=>{
-    res.send('get All Orders')
+  const orders = await Order.find({}).populate('user','id name')
+    res.status(200).json(orders)
   })
 
 

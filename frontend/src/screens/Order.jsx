@@ -1,15 +1,19 @@
 import {Link,useParams} from 'react-router-dom'
-import {Row,Col,ListGroup,Image,Form,Button,Card} from 'react-bootstrap'
+import {Row,Col,ListGroup,Image,Button,Card} from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import  {useGetOrderDetailsQuery,usePayOrderMutation,useGetPayPalClientIdQuery} from  '../slices/orderApiSlice'
 import { PayPalButtons,usePayPalScriptReducer } from '@paypal/react-paypal-js'
 import {toast} from 'react-toastify'
-import { UseSelector, useSelector } from 'react-redux/es/hooks/useSelector'
+import { useSelector } from 'react-redux/es/hooks/useSelector'
 import { useEffect } from 'react'
+import { useDeliverOrderMutation } from '../slices/orderApiSlice'
 
 const Order = () => {
   const {id:orderId} = useParams()
+  console.log(orderId)
+
+  const [deliverOrder,{isLoading:deliverLoading}] = useDeliverOrderMutation()
 
   const {data:order,refetch,isLoading,error} = useGetOrderDetailsQuery(orderId)
 
@@ -55,11 +59,11 @@ const Order = () => {
    })
   }
 
-  async function onApproveTest(){
-   await payOrder({orderId,details:{payer:{"email_address":'asdas@asdf'}}})
-    refetch()
-    toast.success("Payment Successful")
-  }
+//   async function onApproveTest(){
+//    await payOrder({orderId,details:{payer:{"email_address":'asdas@asdf'}}})
+//     refetch()
+//     toast.success("Payment Successful")
+//   } created for testing button
 
   function onError(error){
    toast.error(error.message)
@@ -80,6 +84,16 @@ const Order = () => {
    })
   }
 
+   async function deliverOrderHandler(e){
+      e.preventDefault()
+      try {
+         await deliverOrder(orderId)
+         refetch()
+         toast.success('Order Delivered')
+      } catch (error) {
+         toast.error(error?.data?.message||error)
+      }
+   }
 
 
     
@@ -177,7 +191,7 @@ const Order = () => {
                         </Row>
                     </ListGroup.Item>
 
-                        {!order.isPaid &&(
+                        {!order.isPaid&&(
                            <ListGroup.Item>
                               {loadingPay && <Loader/>}
                               {isPending?<Loader/>:(
@@ -188,6 +202,13 @@ const Order = () => {
                                     </div>
                                  </div>
                               )}
+                           </ListGroup.Item>
+                        )}
+                        {deliverLoading && <Loader/>}
+                        {userInfo && userInfo.isAdmin&& order.isPaid&&
+                        !order.isDelivered&&(
+                           <ListGroup.Item>
+                              <Button type='button' className='btn btn-block' onClick={deliverOrderHandler}>Mark As Delivered</Button>
                            </ListGroup.Item>
                         )}
 

@@ -20,6 +20,9 @@ import Payment from './screens/Payment.jsx';
 import PlaceOrder from './screens/PlaceOrder.jsx';
 import Order from './screens/Order.jsx';
 import Profile from './screens/Profile.jsx';
+import AdminRoute from './components/AdminRoute.jsx';
+import OrderList from './screens/admin/OrderList.jsx';
+import ProductList from './screens/admin/ProductList.jsx';
 
 const router = createBrowserRouter( [
   {
@@ -41,7 +44,11 @@ const router = createBrowserRouter( [
          {path: '/order/:id',element:<Order/>},
          {path: '/profile',element:<Profile/>},
         ]
-      }
+      },
+      {path:"",element:<AdminRoute/>,children:[
+        {path:'/admin/orderlist',element:<OrderList/>},
+        {path:'/admin/productslist',element:<ProductList/>}
+      ]}
     ]
   }
 ]
