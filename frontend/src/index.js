@@ -23,6 +23,9 @@ import Profile from './screens/Profile.jsx';
 import AdminRoute from './components/AdminRoute.jsx';
 import OrderList from './screens/admin/OrderList.jsx';
 import ProductList from './screens/admin/ProductList.jsx';
+import ProductEdit from './screens/admin/ProductEdit.jsx' ;
+import UserEdit from './screens/admin/UserEdit.jsx';
+import UserList from './screens/admin/UserList.jsx';
 
 const router = createBrowserRouter( [
   {
@@ -47,7 +50,11 @@ const router = createBrowserRouter( [
       },
       {path:"",element:<AdminRoute/>,children:[
         {path:'/admin/orderlist',element:<OrderList/>},
-        {path:'/admin/productslist',element:<ProductList/>}
+        {path:'/admin/productslist',element:<ProductList/>},
+        {path:'/admin/product/:id/edit',element:<ProductEdit/>},
+        {path:'/admin/user/:id/edit' ,element:<UserEdit/>},
+        {path:'/admin/userlist', element:<UserList />}
+
       ]}
     ]
   }

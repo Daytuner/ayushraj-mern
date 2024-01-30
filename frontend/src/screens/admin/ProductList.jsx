@@ -3,8 +3,9 @@ import {LinkContainer} from 'react-router-bootstrap'
 import {Table,Button,Row,Col} from 'react-bootstrap'
 import Message from '../../components/Message'
 import Loader from '../../components/Loader'
-import{useGetProductsQuery,useCreateProductMutation} from '../../slices/productApiSlice'
+import{useGetProductsQuery,useCreateProductMutation,useDeleteProductMutation} from '../../slices/productApiSlice'
 import {FaTimes,FaEdit,FaTrash} from 'react-icons/fa'
+import { toast } from 'react-toastify'
 
 
 const ProductList = () => {
@@ -20,8 +21,17 @@ const ProductList = () => {
             }
         }
     }
+    const[deleteProduct,{isLoading:deleteLoading}] = useDeleteProductMutation()
     const deleteHandler = async(id)=>{
-        
+        if(window.confirm("Are you sure you want to delete product?")){
+            try {
+                await deleteProduct(id)
+                refetch()
+                toast.success("Product deleted")
+            } catch (error) {
+                toast.error(error?.data?.message||error)
+            }
+        }
     }
   return (
     <>
@@ -36,6 +46,7 @@ const ProductList = () => {
         </Col>
     </Row>
     {createLoader&&(<Loader/>)}
+    {deleteLoading&&(<Loader/>)}
     {isLoading ? (
              <Loader/>
             ) : isError ? (<Message>{(isError?.data?.message||isError.error)}</Message>) : (<>
