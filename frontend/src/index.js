@@ -34,6 +34,9 @@ const router = createBrowserRouter( [
     errorElement: <Error />,
     children: [
       {  index:true, path: '/', element: <Home/> },
+      {  path: '/page/:pageNumber', element: <Home/> },
+      {  path:'/search/:keyword/page/:pageNumber',
+      element:<Home/>},
       {  path: '/products/:id', element: <PDetail/> },
       {  path:'/cart',element:<Cart/> },
       {  path: '/login',element:<LoginScreen/>},
@@ -51,6 +54,7 @@ const router = createBrowserRouter( [
       {path:"",element:<AdminRoute/>,children:[
         {path:'/admin/orderlist',element:<OrderList/>},
         {path:'/admin/productslist',element:<ProductList/>},
+        {path:'/admin/productslist/:pageNumber',element:<ProductList/>},
         {path:'/admin/product/:id/edit',element:<ProductEdit/>},
         {path:'/admin/user/:id/edit' ,element:<UserEdit/>},
         {path:'/admin/userlist', element:<UserList />}

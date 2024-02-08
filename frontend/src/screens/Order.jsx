@@ -95,7 +95,7 @@ const Order = () => {
       }
    }
 
-
+console.log(order)
     
   return  isLoading ? (<Loader/>) : error ? (<Message varient='danger'/>): (
      <>
