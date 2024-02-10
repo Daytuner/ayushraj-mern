@@ -8,6 +8,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Error from './screens/Error';
 import Home from './screens/Home';
+import {HelmetProvider} from 'react-helmet-async'
 import PDetail from './screens/PDetail';
 import { Provider } from 'react-redux';
 import store from './store.js';
@@ -35,6 +36,7 @@ const router = createBrowserRouter( [
     children: [
       {  index:true, path: '/', element: <Home/> },
       {  path: '/page/:pageNumber', element: <Home/> },
+      { path:'/search/:keyword', element:<Home/>},
       {  path:'/search/:keyword/page/:pageNumber',
       element:<Home/>},
       {  path: '/products/:id', element: <PDetail/> },
@@ -68,11 +70,15 @@ const router = createBrowserRouter( [
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <HelmetProvider>
+
     <Provider store={store}>
       <PayPalScriptProvider deferLoading={true}>
     <RouterProvider router={router}/>
       </PayPalScriptProvider>
     </Provider>
+    </HelmetProvider>
+
   </React.StrictMode>
 );
 

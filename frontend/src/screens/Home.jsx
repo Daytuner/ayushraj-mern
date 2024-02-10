@@ -6,7 +6,7 @@ import Product from '../components/Product'
 import Loader from '../components/Loader.jsx'
 import Paginate from '../components/Paginate';
 import ProductCarousel from '../components/ProductCarousel';
-// import Meta from '../components/Meta';
+import Meta from '../components/Meta';
 import Message from '../components/Message';
 import { Link } from 'react-router-dom';
 
@@ -36,7 +36,7 @@ const Home = () => {
           </Message>
         ) : (
           <>
-            {/* <Meta /> */}
+            <Meta title='Hello' />
             <h1>Latest Products</h1>
             <Row>
               {data.products.map((product) => (

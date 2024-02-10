@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {Form,Buttom} from 'react-bootstrap'
+import {Form,Buttom, Button} from 'react-bootstrap'
 import { useNavigate,useParams } from 'react-router-dom'
 
 const SearchBox = () => {
@@ -9,6 +9,12 @@ const SearchBox = () => {
 
     const submitHandler =async(e)=>{
       e.preventDefault()
+      if(keyword.trim()){
+        navigate(`/search/${keyword}`)
+        setKeyword('')
+      }else{
+        navigate('/')
+      }
     }
   return (
     <Form onSubmit={submitHandler} className='d-flex'>
@@ -19,7 +25,7 @@ const SearchBox = () => {
         placeholder='Search Products...' 
         className='mr-sm-2 ml-sm-5'
         ></Form.Control>
-        <Buttom type='submit' varient='outline-success'   className='p-2 mx-2'>   Search</Buttom>
+        <Button type='submit' variant='outline-light'   className='p-2 mx-2'>   Search</Button>
     </Form>
   )
 }

@@ -6,6 +6,7 @@ import {useSelector, useDispatch} from  'react-redux'
 import { useLogoutMutation } from '../slices/userApiSlice'
 import {logout} from '../slices/authSlice'
 import {useNavigate} from 'react-router-dom'
+import SearchBox from './SearchBox'
 
 const Header = () => {
     const {cartItems} = useSelector((state)=>state.cart)
@@ -24,7 +25,6 @@ const Header = () => {
             console.log(error)
         }
     }
-    console.log(cartItems)
     return (
         <header>
             <Navbar bg='dark' variant='dark' expand='md' collapseOnSelect>
@@ -35,6 +35,7 @@ const Header = () => {
                     <Navbar.Toggle aria-controls='basic-navbar-nav'></Navbar.Toggle>
                     <Navbar.Collapse id='basic-navbar-nav'>
                         <Nav className='ms-auto'>
+                            <SearchBox/>
                             <LinkContainer to='/cart'>
                                 <Nav.Link >
                                     <FaShoppingCart /> Cart

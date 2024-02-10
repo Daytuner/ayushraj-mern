@@ -8,6 +8,7 @@ import { useGetProductDetailsQuery,useCreateReviewMutation } from '../slices/pro
 import Loader from '../components/Loader'
 import { addToCart } from '../slices/cartSlice'
 import Message from '../components/Message'
+import Meta from '../components/Meta'
 
 const PDetail = () => {
   const{id: productId} = useParams()
@@ -44,6 +45,7 @@ const PDetail = () => {
     <Link className='btn btn-light my-3'  to='/'>Go Back</Link>
     {isLoading?(<Loader/>):isError?(<div>{isError?.data?.message||isError.error} </div>):
     <>
+    <Meta title={product.name}/>
     <Row>
     <Col md={5}>
       <Image src={product.image} alt={product.name} fluid/>
